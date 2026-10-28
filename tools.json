@@ -82,7 +82,7 @@
         "claude plugin marketplace add <local-clone-path>",
         "claude plugin install android-reverse-engineering@android-reverse-engineering-skill"
       ],
-      "installNote": "On Windows clone with `git -c core.longpaths=true`. Needs Java 17+ and jadx (Windows: winget install --id Skylot.jadx --version 1.5.6 --exact; its Java dependency may show a UAC prompt).",
+      "installNote": "On Windows clone with `git -c core.longpaths=true`. Needs Java 17+ and the jadx CLI on PATH. Download jadx-1.5.6.zip from https://github.com/skylot/jadx/releases/tag/v1.5.6, extract it, and add its bin folder to PATH. Do not use the winget package Skylot.jadx: it ships only the GUI and pulls in Java 11, which can shadow Java 17.",
       "requires": ["java>=17", "jadx"]
     }
   ]
