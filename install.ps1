@@ -61,7 +61,7 @@ function Install-Skill {
   }
   if (-not (Confirm-Step "Copy-Item -Recurse $from $to")) { [void]$skipped.Add("$name (declined or dry run)"); return }
   try {
-    if (Test-Path $to) { Backup-Settings; Move-Item $to ($to + '.bak-' + (Get-Date -Format 'yyyyMMddHHmmss')) }
+    if (Test-Path $to) { Backup-Settings; Move-Item $to (Join-Path $backupDir $name) }
     New-Item -ItemType Directory -Force -Path $skillsDir | Out-Null
     Copy-Item -Recurse $from $to
     [void]$installed.Add($name)

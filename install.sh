@@ -71,7 +71,7 @@ install_skill() {
     SKIPPED+=("clone-orchestrator (already installed, identical)"); return
   fi
   if confirm "cp -r $from $to"; then
-    if [ -d "$to" ]; then backup_settings; mv "$to" "$to.bak-$(date +%Y%m%d%H%M%S)"; fi
+    if [ -d "$to" ]; then backup_settings; mv "$to" "$BACKUP_DIR/clone-orchestrator"; fi
     mkdir -p "$SKILLS_DIR" && cp -r "$from" "$to" && INSTALLED+=("clone-orchestrator") || FAILED+=("clone-orchestrator")
   else
     SKIPPED+=("clone-orchestrator (declined or dry run)")

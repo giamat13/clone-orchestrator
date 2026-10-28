@@ -1,19 +1,23 @@
 # clone-orchestrator
 
-A routing skill for Claude Code. Say "clone this site", "recreate this app" or "reverse engineer this APK" and it classifies the target, picks the right installed tool, runs the phases, and checks the result against the reference.
+A routing skill for Claude Code. Say "clone this", "recreate this app" or "reverse engineer this" about almost any target (website, web app, desktop app, APK, browser extension, game, binary, backend product, screenshot) and it classifies the target, picks the right installed tool, runs the phases, and checks the result against the reference.
 
-It does not clone anything itself. It routes to existing open-source tools and keeps the process safe and bounded.
+It does not clone anything itself. It routes to existing open-source tools and keeps the process safe and bounded. Website-only tools (clone-website, clone-team, UI Reverse Engineering, MCP Web Clone) run only on websites and web apps.
 
 ## Routing
 
 | Target | Primary tool |
 |---|---|
 | Website | clone-website (+ UI Reverse Engineering for animation) |
-| Web app | Replica Skill (+ REA, MCP Web Clone) |
+| Web app | Replica Skill (+ REA, MCP Web Clone, clone-team) |
+| Desktop app | REA (+ Replica for flows) |
 | Android APK | Android reverse engineering skill (+ REA) |
-| Mobile app, no APK | Replica Skill (+ clone-team) |
+| Mobile app, no file | Replica Skill |
+| Browser extension | REA (+ Replica) |
+| Game | REA (+ Replica) |
+| Binary / firmware / library | REA |
+| Backend / SaaS product | Replica Skill (architect, backend) |
 | Screenshot / video only | Replica Skill (no pixel-exact tool included) |
-| Game | REA |
 
 Rules built into the skill: at most 3 parallel subagents, a test-and-diff quality gate with at most 3 iterations, no bypassing logins or CAPTCHAs, original code and assets only.
 
