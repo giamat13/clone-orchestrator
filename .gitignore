@@ -1,0 +1,11 @@
+node_modules/
+.venv/
+__pycache__/
+*.log
+*.bak-*
+.DS_Store
+Thumbs.db
+.env
+.env.*
+clone-orchestrator-src/
+clone-orchestrator-backup/

@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "tools": [
+    {
+      "id": "replica",
+      "name": "Replica Skill",
+      "url": "https://github.com/Jakeschincariol/replica-skill",
+      "license": "MIT",
+      "pin": { "type": "commit", "value": "77c9436fb3d18c3d58169efb8caf4fe906b0dc51" },
+      "install": "manual",
+      "installNote": "Copy each replica-* folder from the repo into ~/.claude/skills. Already installed on the reference machine.",
+      "detect": { "skillDir": "replica-recon" }
+    },
+    {
+      "id": "rea",
+      "name": "REA",
+      "url": "https://github.com/morluto/rea",
+      "license": "MIT",
+      "pin": { "type": "npm", "value": "rea-agents@6.8.0" },
+      "install": "npm",
+      "commands": [
+        "npm install --global rea-agents@6.8.0",
+        "rea setup --client claude_code --dry-run",
+        "rea setup --client claude_code",
+        "rea doctor --client claude_code"
+      ],
+      "requires": ["node>=24.22.1"],
+      "detect": { "command": "rea" }
+    },
+    {
+      "id": "clone-website",
+      "name": "clone-website (ai-website-cloner-template)",
+      "url": "https://github.com/JCodesMore/ai-website-cloner-template",
+      "license": "MIT",
+      "pin": { "type": "tag", "value": "v0.6.1", "commit": "d3623fece99077f2f331240ea83e667e7f781ef6" },
+      "install": "template-project",
+      "installNote": "Template project, not a global skill. Clone the tag into a folder you choose, then npm install.",
+      "requires": ["node>=24"]
+    },
+    {
+      "id": "clone-team",
+      "name": "clone-team",
+      "url": "https://github.com/Varalix-Digitech-Solutions/clone-team",
+      "license": "MIT",
+      "pin": { "type": "commit", "value": "31e9862290ff120df60549f121636bd77257b322" },
+      "install": "manual",
+      "installNote": "Copy skills/clone-team into ~/.claude/skills/clone-team.",
+      "detect": { "skillDir": "clone-team" }
+    },
+    {
+      "id": "mcp-web-clone",
+      "name": "MCP Web Clone (Perfect Web Clone IDE)",
+      "url": "https://github.com/ericshang98/Perfect-Web-Clone-IDE",
+      "license": "MIT",
+      "pin": { "type": "commit", "value": "01f3affe4ef8a9e25dd1b6b54aee1001bffa6576" },
+      "install": "venv-mcp",
+      "installNote": "Python venv + pip + playwright, then register with `claude mcp add`. Upstream requirements are unpinned (lower bounds only).",
+      "requires": ["python>=3.8"]
+    },
+    {
+      "id": "ui-reverse-engineering",
+      "name": "UI Reverse Engineering (ui-clone-skills)",
+      "url": "https://github.com/voidmatcha/ui-clone-skills",
+      "license": "Apache-2.0",
+      "pin": { "type": "commit", "value": "c6dacc7a14ca1bc655dbda99c25cbfd5f0baf3e6" },
+      "install": "plugin",
+      "commands": [
+        "claude plugin marketplace add <local-clone-path>",
+        "claude plugin install ui-clone-skills@voidmatcha"
+      ],
+      "requires": ["uv", "python>=3.11"],
+      "installNote": "Live URLs only. No screenshot or video input."
+    },
+    {
+      "id": "android",
+      "name": "Android Reverse Engineering Skill",
+      "url": "https://github.com/SimoneAvogadro/android-reverse-engineering-skill",
+      "license": "Apache-2.0",
+      "pin": { "type": "tag", "value": "v1.7.0", "commit": "4c166fea8f769534449dc36d5d4078ee7916edb4" },
+      "install": "plugin",
+      "installNote": "On Windows clone with `git -c core.longpaths=true`. Needs Java 17+ and jadx.",
+      "requires": ["java>=17", "jadx"]
+    }
+  ]
+}
