@@ -34,7 +34,7 @@ Run the script without `--skill-only` (`-SkillOnly` on PowerShell). It prints th
 | clone-team | script | copies the skill |
 | MCP Web Clone | manual | Python venv, pip, playwright, then `claude mcp add` (requirements are unpinned upstream) |
 | UI Reverse Engineering | script | needs `uv` and Python 3.11+; live URLs only |
-| Android RE | manual | needs Java 17+ and `jadx`; on Windows clone with `git -c core.longpaths=true` |
+| Android RE | script | needs Java 17+ and `jadx` (Windows: `winget install --id Skylot.jadx --version 1.5.6 --exact`; its Java dependency may show a UAC prompt) |
 
 Settings are changed only through `claude mcp` / `claude plugin` commands, after a backup.
 

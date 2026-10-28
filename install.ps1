@@ -120,6 +120,18 @@ function Install-Tool($tool) {
         if ($LASTEXITCODE -ne 0) { throw 'plugin install failed' }
         [void]$installed.Add('ui-reverse-engineering')
       }
+      'android' {
+        if (-not (Has-Command 'java')) { [void]$failed.Add('android : java not found (17+ required)'); return }
+        if (-not (Has-Command 'jadx')) { Write-Host '  Warning: jadx not found on PATH. Install it (see installNote in tools.json) before using this skill.' }
+        if (-not (Confirm-Step "git clone + checkout $($tool.pin.value); claude plugin marketplace add <clone>; claude plugin install android-reverse-engineering@android-reverse-engineering-skill")) { [void]$skipped.Add('android (declined)'); return }
+        Backup-Settings
+        $d = Clone-Pinned $tool
+        & claude plugin marketplace add $d
+        if ($LASTEXITCODE -ne 0) { throw 'marketplace add failed' }
+        & claude plugin install android-reverse-engineering@android-reverse-engineering-skill
+        if ($LASTEXITCODE -ne 0) { throw 'plugin install failed' }
+        [void]$installed.Add('android')
+      }
       default {
         [void]$manual.Add("$($tool.id) : $($tool.installNote)")
       }

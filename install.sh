@@ -110,6 +110,15 @@ install_tool() {
         claude plugin marketplace add "$d" && claude plugin install ui-clone-skills@voidmatcha \
           && INSTALLED+=("ui-reverse-engineering") || FAILED+=("ui-reverse-engineering")
       else SKIPPED+=("ui-reverse-engineering (declined)"); fi ;;
+    android)
+      command -v java >/dev/null || { FAILED+=("android: java not found (17+ required)"); return; }
+      command -v jadx >/dev/null || echo "  Warning: jadx not found on PATH. Install it before using this skill."
+      if confirm "git clone + checkout pin; claude plugin marketplace add <clone>; claude plugin install android-reverse-engineering@android-reverse-engineering-skill"; then
+        backup_settings
+        d="$(clone_pinned android)" || { FAILED+=("android"); return; }
+        claude plugin marketplace add "$d" && claude plugin install android-reverse-engineering@android-reverse-engineering-skill \
+          && INSTALLED+=("android") || FAILED+=("android")
+      else SKIPPED+=("android (declined)"); fi ;;
     *)
       MANUAL+=("$id: $(tool_field "$id" installNote)") ;;
   esac

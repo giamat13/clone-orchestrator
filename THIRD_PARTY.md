@@ -16,6 +16,6 @@ Licenses were read from each repository's LICENSE file at the pinned version.
 
 ## TODO
 
-- Android: confirm the plugin marketplace name, then automate its install.
+- Android: resolved. Marketplace `android-reverse-engineering-skill`, plugin `android-reverse-engineering`; installed by the scripts. `jadx` must be installed separately.
 - MCP Web Clone: confirm whether `mcp-web-clone` is a rename or a fork of Perfect-Web-Clone-IDE, and record resolved dependency versions after install.
 - clone-website and clone-team: re-verify claims in the original spec (git worktrees, `claude --chrome`) against future releases.

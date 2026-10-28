@@ -78,7 +78,11 @@
       "license": "Apache-2.0",
       "pin": { "type": "tag", "value": "v1.7.0", "commit": "4c166fea8f769534449dc36d5d4078ee7916edb4" },
       "install": "plugin",
-      "installNote": "On Windows clone with `git -c core.longpaths=true`. Needs Java 17+ and jadx.",
+      "commands": [
+        "claude plugin marketplace add <local-clone-path>",
+        "claude plugin install android-reverse-engineering@android-reverse-engineering-skill"
+      ],
+      "installNote": "On Windows clone with `git -c core.longpaths=true`. Needs Java 17+ and jadx (Windows: winget install --id Skylot.jadx --version 1.5.6 --exact; its Java dependency may show a UAC prompt).",
       "requires": ["java>=17", "jadx"]
     }
   ]
