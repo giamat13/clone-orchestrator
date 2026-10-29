@@ -84,6 +84,16 @@
       ],
       "installNote": "On Windows clone with `git -c core.longpaths=true`. Needs Java 17+ and the jadx CLI on PATH. Download jadx-1.5.6.zip from https://github.com/skylot/jadx/releases/tag/v1.5.6, extract it, and add its bin folder to PATH. Do not use the winget package Skylot.jadx: it ships only the GUI and pulls in Java 11, which can shadow Java 17.",
       "requires": ["java>=17", "jadx"]
+    },
+    {
+      "id": "deep-research",
+      "name": "deep-research (giamat13)",
+      "url": "https://github.com/giamat13/deep-research",
+      "license": "none in repo (owner's own repo, used with the owner's agreement)",
+      "pin": { "type": "commit", "value": "9e5d144151f5ec06c5359f131af42944381a780b" },
+      "install": "manual",
+      "installNote": "Copy SKILL.md into ~/.claude/skills/deep-research. Used by the full features level.",
+      "detect": { "skillDir": "deep-research" }
     }
   ]
 }

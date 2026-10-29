@@ -21,6 +21,8 @@ It does not clone anything itself. It routes to existing open-source tools and k
 
 Rules built into the skill: at most 3 parallel subagents, a test-and-diff quality gate with at most 3 iterations, no bypassing logins or CAPTCHAs, original code and assets only.
 
+Copy levels are set per request. Design goes from `low` to `full`. Features go from `none` to `full`, and a `+` after the level adds features that Claude proposes. Defaults are `full` for design and features. The `full` features level needs the deep-research skill, see [deep-research.md](skills/clone-orchestrator/references/deep-research.md). See [SKILL.md](skills/clone-orchestrator/SKILL.md).
+
 ## Install
 
 See [INSTALL.md](INSTALL.md) (English and Hebrew). Short version:

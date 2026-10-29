@@ -11,6 +11,7 @@ clone-orchestrator does not bundle these tools. It routes to them and installs t
 | MCP Web Clone (Perfect Web Clone IDE) | https://github.com/ericshang98/Perfect-Web-Clone-IDE | MIT | commit 01f3affe4ef8a9e25dd1b6b54aee1001bffa6576 |
 | UI Reverse Engineering (ui-clone-skills) | https://github.com/voidmatcha/ui-clone-skills | Apache-2.0 | commit c6dacc7a14ca1bc655dbda99c25cbfd5f0baf3e6 |
 | Android Reverse Engineering Skill | https://github.com/SimoneAvogadro/android-reverse-engineering-skill | Apache-2.0 | tag v1.7.0 |
+| deep-research | https://github.com/giamat13/deep-research | none in repo (owner's own repo, used with the owner's agreement) | commit 9e5d144151f5ec06c5359f131af42944381a780b |
 
 Licenses were read from each repository's LICENSE file at the pinned version.
 

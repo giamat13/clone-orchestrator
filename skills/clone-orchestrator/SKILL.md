@@ -25,6 +25,40 @@ Routing skill. It does not clone anything itself: it classifies the target, pick
 
 If the class is ambiguous, ask exactly ONE question (for example: "Is this a public URL or a logged-in app?") and wait. Never ask more than one.
 
+## Copy level
+
+Two axes, set per request. Never ask about them.
+
+**Design** (visuals and UI): `low`, `medium`, `high`, `full`
+- `low`: screen structure. Design is free.
+- `medium`: plus layout, spacing and sizes per section, and animations, scroll effects and transitions.
+- `high`: plus computed styles (type scale, spacing, radius, shadow) at three widths.
+- `full`: plus component states (hover, focus, disabled, empty, error).
+
+**Features:** `none`, `minimal`, `low`, `medium`, `high`, `full`
+- `none`: no features. Only the screens, with no logic.
+- `minimal`: only the features of the main action, from start to end.
+- `low`: all must features.
+- `medium`: all must features, plus the should features of the central parts.
+- `high`: all must and should features.
+- `full`: everything, including could. Run [full-feature-sweep.md](references/full-feature-sweep.md) before building, without asking.
+- `+` after a features level, up to five (e.g. `high++`): Claude adds features of its own on top of that level, and decides how many each `+` adds. Each added feature is marked in the report.
+
+Accepted Hebrew words: design נמוך, בינוני, גבוה, מלא; features אין, מינימלי, נמוך, בינוני, גבוה, מלא. A level word with no axis named is read as design.
+
+Defaults: design `full`, features `full`. Colours are never copied at any level. Text, images, font files, logos and code stay the user's at every level: a level changes what is built and measured, never what may be copied.
+
+| Target | Max design level |
+|---|---|
+| Public website | `full` |
+| Web app | `full`, only in the user's own account |
+| Desktop app, screenshots or video | `medium`. Animations cannot be verified and are marked in the report |
+| APK, mobile app without file, extension, game, binary/firmware, backend/SaaS | `low` |
+
+Features have no technical cap. Anything behind a login is built only in the user's own account. Anything not visible from outside is marked unverified.
+
+Above a cap: clamp to the cap and say so in the report. To change a level mid-job, rerun only the gate of the axis that changed.
+
 ## Routing table
 
 | Class | Primary tool | Support | Reference |
@@ -56,7 +90,12 @@ UI Reverse Engineering needs a LIVE URL. It does not accept screenshots or video
 ## Quality gate (every phase)
 
 1. Run the project's tests or build.
-2. Diff the result against the reference (screenshots, computed styles, or feature matrix).
+2. Diff against the reference with the tools for the active levels. Each design level includes the checks of the levels below it:
+   - design `low`: screen inventory against the recon map
+   - design `medium`: replica-diff layout diff (colour ignored), visual-debug transition diff
+   - design `high`: AE/SSIM and computed-style diff (visual-debug)
+   - design `full`: replica-test for component states
+   - features: replica-diff parity score for the level's set. `full` also checks against the list from [full-feature-sweep.md](references/full-feature-sweep.md)
 3. If it fails, fix and repeat. Maximum 3 iterations, then stop and report what still differs.
 
 ## Failure handling
@@ -67,7 +106,7 @@ UI Reverse Engineering needs a LIVE URL. It does not accept screenshots or video
 
 ## Safety rules
 
-- Rebuild with original code, copy, assets and branding. Never copy proprietary code, images, fonts, logos or text.
+- Rebuild with your own code, copy, assets and branding. Never copy proprietary code, images, fonts, logos or text.
 - Analyze only targets the user owns or is allowed to study (APKs, binaries and extensions: the user's own or permitted).
 - No scraping behind authentication, no credential use, no rate-limit evasion, no license or DRM circumvention.
 - Do not edit `~/.claude.json` or settings by hand; use `claude mcp add` and `claude plugin` after a backup.
@@ -75,7 +114,7 @@ UI Reverse Engineering needs a LIVE URL. It does not accept screenshots or video
 
 ## Reports
 
-After each phase print one line: `[phase] <what was done> -> <result> | next: <step>`.
+After each phase print one line: `[phase] <what was done> -> <result> | next: <step>`. The first phase line also names both levels, e.g. `[design] high | [features] medium`.
 At the end, summarize in the user's language: what was built, what differs from the reference, what is left.
 
 ## References
