@@ -1,6 +1,17 @@
 ---
 name: clone-orchestrator
 description: General entry point for "clone / recreate / copy / reverse-engineer / build something like X" for ANY kind of target - website, web app, desktop or Electron app, Android APK, mobile app, browser extension, game, binary or firmware, backend/API product, or just a screenshot or video. Classifies the target first and routes to the right installed tool, so website-only tools run only on websites. Use for "clone this", "recreate this app", "copy this UI", "reverse engineer this", "build something like X", or in Hebrew "שכפל", "תעתיק", "תבנה משהו כמו", "הנדסה לאחור".
+hooks:
+  Stop:
+    - hooks:
+        - type: agent
+          timeout: 120
+          prompt: >-
+            Stop check for the clone-orchestrator run. Keep the run going until the condition below holds.
+            Condition: every quality gate for the design level and the features level set in the first request of this session passes, each result is shown in the transcript, the project's test or build command exits 0, and no file outside the target project is modified, or stop after 20 turns. If the first request names no levels, use full for both.
+            The hook input JSON includes transcript_path. Read that file and look for the gate results, test runs and exit codes.
+            Return ok true if the condition holds, if the 20-turn bound is reached, or if Claude has stopped to ask the user a question, or hit a login wall, CAPTCHA or paywall, since only the user can answer those.
+            Otherwise return ok false with a reason that names the gate or check still missing.
 ---
 
 # clone-orchestrator
@@ -97,6 +108,16 @@ UI Reverse Engineering needs a LIVE URL. It does not accept screenshots or video
    - design `full`: replica-test for component states
    - features: replica-diff parity score for the level's set. `full` also checks against the list from [full-feature-sweep.md](references/full-feature-sweep.md)
 3. If it fails, fix and repeat. Maximum 3 iterations, then stop and report what still differs.
+
+## Goal
+
+When the skill is invoked, it registers a session-scoped Stop hook from its frontmatter. That is the mechanism `/goal` wraps, so the run continues after each turn until this condition holds, with the levels filled in:
+
+```
+Every quality gate for design <level> and features <level> passes, with each result shown in the transcript, the project's test or build command exits 0, and no file outside the target project is modified, or stop after 20 turns.
+```
+
+The hook is an agent hook, so it reads the transcript file itself. A skill cannot start the `/goal` command, so the hook is not shown as `/goal`. It stays registered for the rest of the session and can be removed from the `/hooks` menu.
 
 ## Failure handling
 
